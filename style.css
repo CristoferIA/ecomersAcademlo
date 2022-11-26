@@ -491,7 +491,8 @@ nav {
 
 
 .carrito {
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
     height: 100vh;
     background-color: var(--white-color);
     position: absolute;

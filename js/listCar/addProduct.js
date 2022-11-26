@@ -4,8 +4,13 @@ let car = document.querySelector(".carrito__items");
 let car_compras = [];
 let btn_tabla = document.querySelectorAll('.btn_tabla');
 
+let car_item = document.querySelector('.carrito__items');
+let checkout = document.querySelector('#btn_checkout');
+
 export function btnItems(element){
     addProduct(element);
+    car_item.addEventListener('click',(e)=>{quitarItem(e)});
+    checkout.addEventListener('click',(e)=>{enviarCompars()});
 }
 
 function addProduct(element) {
@@ -125,7 +130,7 @@ function pintarCarrito(arr) {
                             <button class="btn_tabla" dataid="${data.id}" style="font-size:1rem; width:1.2rem; height:1.2rem; background-color:white; border:1px solid #ddd;cursor: pointer;">+</button>
                         </td>
                         <td>
-                            <button style="background-color:white; color:red; border:none ;cursor: pointer;"><span class="material-symbols-outlined">
+                            <button style="background-color:white; color:red; border:none ;cursor: pointer;"><span class="material-symbols-outlined" dataid-quitar="${data.id}">
                             delete
                             </span></button>
                         </td>
@@ -145,6 +150,63 @@ function pintarCarrito(arr) {
     btn_tabla = document.querySelectorAll('.btn_tabla_remove');
     removeItemstaba(btn_tabla);
 }
+
+
+function quitarItem(e){
+
+    let item_id = e.target.getAttribute('dataid-quitar');
+
+    //console.log(item_id);
+
+    if (item_id) {
+
+        let tem = [];
+
+        car_compras.forEach((item, index) => {
+
+            if(item.id == item_id){
+                tem[0] = index;
+            }
+        });
+        //console.log(tem);
+        car_compras.splice(tem[0], 1);
+        tem = ''
+    
+        //console.log(car_compras);
+        //console.log(item_id);
+    
+        pintarCarrito(car_compras) ;
+        actualizarData();
+    }
+
+
+    
+    if(car_compras.length === 0){
+
+        car.innerHTML = `
+        <img src="img/empty-cart.png" alt="">
+        <h1>Your cart is empty</h1>
+        <p>You can add items to your cart by clicking on the "+" button on the product page.</p>
+
+        `
+    }
+
+
+}
+
+
+function enviarCompars(){
+
+    console.log(car_compras);
+    
+}
+
+export function listCar(){
+
+    console.log(car_compras);
+    
+}
+
 
 
 
